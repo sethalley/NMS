@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 style="text-align:center">Network Information</h1>
+<p style="text-align:center; padding:3%;">This page provides information about your current network connection, including SSID, encryption type, IP addresses, latency, and more. Please hover your cursor over an item to learn more about it. This page is intended for hands-on network learning and understanding only.</p>
+<div id="network-warning">
+    <h3>Important legal notice:</h3>
+    <p>This platform is designed to gather network information that is legally permissible, such as the default gateway, DNS server, SSID, and network latency. However, unauthorized access to sensitive network data may violate privacy laws and regulations. Always ensure you have proper authorization before collecting or analyzing network data, as unauthorized actions can result in legal consequences. Use this platform responsibly and in accordance with applicable laws.</p>
+</div>
+<div id="network-info-container">
+    <div id="network-info">
+        {% if network_information %}
+            <h2>Network Info</h2>
+            <p class="hover-item" data-info="A local IP address is a unique identifier assigned to a device within a private network, allowing devices to communicate with each other.<br>Local IP addresses are typically assigned to your device by the router through a process called DHCP.<br>IPv4 is the name for the most common version of IP addresses, uses a 32-bit format to uniquely identify devices, but it has a limited number of addresses.<br>A private IP address is used within a local network and cannot be accessed directly from the internet.<br>You can tell if your IP address is private if it falls within one of these ranges: 10.x.x.x, 172.16.x.x to 172.31.x.x, or 192.168.x.x.">
+                <strong class="label">Local IP Address:</strong>
+                <span class="value">{{ network_information.local_ip }}</span>
+            </p> 
+            <p class="hover-item" data-info="IPv6 is the latest version of the Internet Protocol designed to replace IPv4, offering a vastly larger address space with its 128-bit address format compared to IPv4's 32-bit format. This allows for nearly limitless unique addresses, solving the address exhaustion issue of IPv4. IPv4 and IPv6 can coexist on the same network through a process called dual-stack, enabling devices to communicate using both protocols simultaneously. The primary differences are that IPv6 provides better security, simplified routing, and supports modern networking needs, while IPv4 is more widely used but limited in scalability. Transitioning to IPv6 ensures future compatibility and better performance for internet-connected devices.">
+                <strong class="label">Is IPv6 in use:</strong> 
+                <span class="value">{% if network_information.is_ipv6 %}Yes{% else %}No{% endif %}</span>
+            </p>
+            <p class="hover-item" data-info="An IPv6 address is assigned either automatically by the network through Stateless Address Autoconfiguration (SLAAC) or via a DHCPv6 server. The address is typically divided into two parts: the network prefix, which identifies the network, and the interface identifier, which is unique to the device. You can interpret your IPv6 address by breaking it into eight groups of hexadecimal numbers, separated by colons, where the first part specifies the network and the second part identifies your device. Reserved address types, like `fe80::` for link-local or `2001::` for global unicast, provide clues about the address's purpose. Tools and online lookup services can help decode the specifics of an IPv6 address.">
+                <strong class="label">IPv6 Address:</strong> 
+                <span class="value">{% if network_information.ipv6_address %}{{ network_information.ipv6_address }}{% else %}N/A{% endif %}</span>
+            </p>
+            <p class="hover-item" data-info="A public IP address is a unique identifier assigned to your device by your internet service provider, allowing it to communicate with devices and servers on the internet. You need both a public and private IP address because the private IP enables communication within your local network, while the public IP connects your network to the broader internet. Your public address can be either IPv4 or IPv6, depending on your ISP and network configuration; IPv4 is more common but increasingly supplemented by IPv6 due to address limitations.">
+                <strong class="label">Public IP Address:</strong> 
+                <span class="value">{{ network_information.public_ip }}</span>
+            </p>
+            <p class="hover-item" data-info="A DNS server is a system that translates human-readable domain names (like www.example.com) into machine-readable IP addresses. It is used to connect devices to websites and services by directing traffic to the correct server. You need a DNS server because it simplifies internet navigation, allowing you to use easy-to-remember names instead of numerical IP addresses. Without it, accessing online resources would be significantly more complex. This is the address of the DNS server you are currently connected to.">
+                <strong class="label">DNS Server:</strong> 
+                <span class="value">{{ network_information.dns }}</span>
+            </p>
+            <p class="hover-item" data-info="A default gateway is the device, typically a router, that connects your local network to other networks, including the internet. It serves as an access point for sending data from your network to destinations outside of it. You need the address of a default gateway to ensure your device knows where to send traffic that is not within your local network, enabling communication with external networks and websites.">
+                <strong class="label">Default Gateway:</strong> 
+                <span class="value">{{ network_information.default_gateway }}</span>
+            </p>
+            <p class="hover-item" data-info="Network latency is the time it takes for data to travel from your device to a destination server and back. Ping is a network utility used to measure latency by sending a small data packet to a target and timing how long it takes to return. A normal range for ping depends on the connection type but is typically 1-30 milliseconds for a wired network, 20-50 milliseconds for a stable Wi-Fi network, and up to 100 milliseconds for mobile or satellite connections.">
+                <strong class="label">Network Latency (Ping):</strong> 
+                <span class="value">{{ network_information.latency }} ms</span>
+            </p>
+            <p class="hover-item" data-info="A MAC (Media Access Control) address is a unique identifier assigned to a device's network interface card (NIC) for communication within a local network. It is essential for routing data to the correct device within a network. MAC addresses are typically assigned by the device manufacturer and are embedded in the hardware, but they can be temporarily changed or 'spoofed' if needed.">
+                <strong class="label">Device MAC Address:</strong> 
+                <span class="value">{{ network_information.mac_address }}</span>
+            </p>
+            <p class="hover-item" data-info="An SSID (Service Set Identifier) is the name assigned to a wireless network, allowing devices to identify and connect to it. The SSID is simply the name of the wireless network, while the IP address is used to identify devices on the network. It is helpful to have human readable SSIDs for simplicity in remembering and identifying networks.">
+                <strong class="label">SSID:</strong> 
+                <span class="value">{{ network_information.ssid }}</span>
+            </p>
+            <p class="hover-item" data-info="Channels and frequencies refer to the specific radio bands used by wireless networks to transmit data. The channel is a range of frequencies assigned for communication, while the frequency is the specific wavelength within that range that the network uses for its signal. Gathering data on channel and frequency can sometimes be more challenging than other parameters because it requires specialized tools to detect and identify the exact channel a network is using, and networks can dynamically switch channels to optimize performance.">
+                <strong class="label">Channel and Frequency:</strong> 
+                <span class="value">{{ network_information.channel_freq }}</span>
+            </p>
+            <p class="hover-item" data-info="Encryption type refers to the method used to secure a wireless network, with common types including WEP, WPA, WPA2, and WPA3. These methods vary in security, with WPA3 being the most secure. 'Encryption type: automatic' means the router or device will select the best available encryption method based on compatibility with connected devices, often defaulting to WPA2 or WPA3 for stronger security. This ensures that the network remains secure without requiring manual configuration.">
+                <strong class="label">Encryption Type:</strong> 
+                <span class="value">{{ network_information.encryption }}</span>
+            </p>
+        {% else %}
+            <p>No network data available.</p>
+        {% endif %}
+    </div>
+    
+
+    <div id="network-info-blue">
+        <h2>Additional Information</h2>
+        <p>Hover over an item on the left to learn more about it!</p>
+    </div>
+</div>
+
+
+
+{% endblock %}

@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+        <h1 style="text-align:center;">My Device Metrics</h1>
+        <p style="text-align:center; padding:3%;">Understanding these device metrics helps you keep your system running smoothly by showing how resources are being used. Metrics like CPU cores, usage, and frequency tell you how powerful your processor is and if it's overworked. Disk usage and I/O show if your storage is full or if there are slow read/write speeds that could cause problems. Memory metrics show how much RAM is used or available, helping avoid slowdowns. The load average gives a snapshot of system activity, helping you spot potential issues early. Overall, these are good ways to understand the current "effort" of your device.</p>
+
+    
+    <ul class="metrics-list">
+        <li>
+            <h3>CPU Cores</h3>
+            <span id="cpu-cores">Loading...</span>
+            <p style="color:rgb(0, 204, 255)">The number of CPU cores on your machine. More cores can improve multitasking and performance on complex tasks.</p>
+        </li>
+        <li>
+            <h3>CPU Usage</h3>
+            <span id="cpu-usage">Loading...</span>
+            <p style="color:rgb(0, 204, 255)">Percentage of CPU capacity currently in use. High usage might indicate a process is demanding significant CPU resources.</p>
+        </li>
+        <li>
+            <h3>CPU Frequency</h3>
+            <span id="cpu-frequency">Loading...</span>
+            <p style="color:rgb(0, 204, 255)">The speed at which your CPU is running. A higher frequency means faster processing speeds, but higher power consumption.</p>
+        </li>
+        <li>
+            <h3>Disk Usage</h3>
+            <span id="disk-usage">Loading...</span>
+            <p style="color:rgb(0, 204, 255)">Shows how much disk space is used versus available. Overfilling disk space can lead to slow performance and system instability.</p>
+        </li>
+        <li>
+            <h3>Disk I/O Read</h3>
+            <span id="disk-io-read">Loading...</span>
+            <p style="color:rgb(0, 204, 255)">Shows how much data has been read from the disk. This helps monitor disk read performance and bottlenecks.</p>
+        </li>
+        <li>
+            <h3>Disk I/O Write</h3>
+            <span id="disk-io-write">Loading...</span>
+            <p style="color:rgb(0, 204, 255)">Shows how much data has been written to the disk. High write rates may indicate heavy disk usage.</p>
+        </li>
+        <li>
+            <h3>Memory Total</h3>
+            <span id="memory-total">Loading...</span>
+            <p style="color:rgb(0, 204, 255)">The total amount of memory available on your system. More memory allows for smoother multitasking and better application performance.</p>
+        </li>
+        <li>
+            <h3>Memory Used</h3>
+            <span id="memory-used">Loading...</span>
+            <p style="color:rgb(0, 204, 255)">The amount of memory currently in use. Running out of memory can cause system slowdowns or crashes.</p>
+        </li>
+        <li>
+            <h3>Memory Free</h3>
+            <span id="memory-free">Loading...</span>
+            <p style="color:rgb(0, 204, 255)">The amount of free memory available. A low amount of free memory can impact performance.</p>
+        </li>
+        <li>
+            <h3>Load Average (1, 5, 15 min)</h3>
+            <span id="load-average">Gathering data...</span>
+            <p style="color:rgb(0, 204, 255)">The system load averages over the last 1, 5, and 15 minutes. This indicates how busy the system is.</p>
+        </li>
+    </ul>
+{% endblock %}

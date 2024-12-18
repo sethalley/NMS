@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div id="global-stuff">
+    <h2>Global Reach</h2>
+    <p3>Each time you request to access a webpage over the global network known as the internet, your request is broken down into packets that are routed and transmitted across the network. These packets travel between routers and servers, often located in different places, to reach their destination.</p3>
+    <br>
+    <!-- Command Input Section -->
+    <p4>In your device's terminal, you can type the commands 'ping example.com' or 'tracert example.com' to obtain information about packet transmission speed and location. Select a domain below and press 'enter' to run these commands and obtain information. (Be patient as the request is being processed).</p4>
+        <!-- Loading indicator -->
+        <div id="loading-message" style="display: none;">Loading...</div>
+    <div id="command-input-container">
+        <select id="command-input">
+            <option value="">Select a domain</option>
+            <option value="google.com">google.com (enter to run)</option>
+            <option value="example.com">example.com (enter to run)</option>
+        </select>
+    </div>
+
+    <!-- Display Section for IP Geolocation Results -->
+    <div id="ip-list">
+        <h3>IP Addresses and Geolocation</h3>
+        <ul id="ip-list-container"></ul>
+    </div>
+
+    <!-- Display Section for Traceroute Results -->
+    <div id="result-container">
+        <h3>Traceroute Results</h3>
+        <pre id="result-display">No results yet. Select a domain above.</pre>
+    </div>
+
+    
+</div>
+
+{% endblock %}

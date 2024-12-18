@@ -1,0 +1,109 @@
+
+{% extends "base.html" %}
+
+    {% block content %}
+
+        <h1 style="text-align:center;">Interface Metrics</h1>
+        <p style="text-align:center; padding:3%;">Interfaces are communication points between different systems or devices, such as network interfaces that allow data exchange between computers and networks. Understanding interface metrics helps in monitoring performance, identifying potential issues, and optimizing resource use. Metrics such as data sent/received, errors, and speed provide insights into the efficiency and health of the interface. By tracking these metrics, you can detect problems like network congestion, hardware failures, or security risks, ensuring smooth system operation. Regularly analyzing interface metrics also helps in proactive maintenance and troubleshooting.</p>
+
+        <!-- Display Network Interface Totals -->
+        <div id="summary">
+            {% if totals_metrics %}
+                <div>
+                    <h2>Summary</h2>
+                    <p style="color:rgb(0, 204, 255);">Total Interfaces: {{ totals_metrics.total_interfaces }}    ||    Interfaces Up: {{ totals_metrics.interfaces_up }}    ||    Total Errors: {{ totals_metrics.total_errors }}</p>
+                    <p style="color:rgb(0, 204, 255);">Total Packets Transmitted: {{ totals_metrics.total_packets }}   ||    Total Bytes Transmitted: {{ totals_metrics.total_bytes }}   ||    Latency: {{ totals_metrics.latency }}</p>
+                </div>
+            {% else %}
+                <p>No total metrics available.</p>
+            {% endif %}
+        </div>
+            
+            <!-- Display Network Interfaces from Flask -->
+            {% if interface_metrics %}
+            <ul class="interface-metrics-list">
+                {% for interface, metrics in interface_metrics.items() %}
+                <li>
+                    <!-- Interface name (e.g., en0, awdl0, etc.) -->
+                    <h3>Interface Name: {{ interface }}</h3>
+                
+                    <!-- Status of the network interface (whether it's up or down) -->
+                    <p>
+                        <span class="tooltip">Status:
+                            <span class="tooltip-text">Status indicates whether the network interface is active (Up) or inactive (Down).</span>
+                        </span>
+                        {{ metrics.status }}
+                    </p>
+                
+                    <!-- IP Address of the interface, if available -->
+                    <p>
+                        <span class="tooltip">IP Address:
+                            <span class="tooltip-text">IP address is the unique address assigned to this network interface for communication on the network. If it's empty, the interface may not have an IP address assigned.</span>
+                        </span>
+                        {{ metrics.ip_address or 'N/A' }}
+                    </p>
+                
+                    <!-- Amount of data received on the interface in megabytes (MB) -->
+                    <p>
+                        <span class="tooltip">Bytes Received:
+                            <span class="tooltip-text">Bytes received is the total amount of data (in MB) that has been received by this interface.</span>
+                        </span>
+                        {{ metrics.bytes_received }}
+                    </p>
+                
+                    <!-- Amount of data sent from the interface in megabytes (MB) -->
+                    <p>
+                        <span class="tooltip">Bytes Sent:
+                            <span class="tooltip-text">Bytes sent is the total amount of data (in MB) that has been sent from this interface.</span>
+                        </span>
+                        {{ metrics.bytes_sent }}
+                    </p>
+                
+                    <!-- Number of packets received by the interface -->
+                    <p>
+                        <span class="tooltip">Packets Received:
+                            <span class="tooltip-text">Packets Received is the total number of data packets received by this interface. A packet is a small chunk of data transmitted over the network.</span>
+                        </span>
+                        {{ metrics.packets_received }}
+                    </p>
+                
+                    <!-- Number of packets sent from the interface -->
+                    <p>
+                        <span class="tooltip">Packets Sent:
+                            <span class="tooltip-text">Packets sent is the total number of data packets sent by this interface.</span>
+                        </span>
+                        {{ metrics.packets_sent }}
+                    </p>
+                
+                    <!-- Speed of the interface (in Mbps) -->
+                    <p>
+                        <span class="tooltip">Speed:
+                            <span class="tooltip-text">The speed at which data is transmitted over the network interface (in Mbps). If unavailable, this could indicate a lack of support for speed monitoring.</span>
+                        </span>
+                        {{ metrics.speed }}
+                    </p>
+                
+                    <!-- Input errors (data reception errors) -->
+                    <p>
+                        <span class="tooltip">Input Errors:
+                            <span class="tooltip-text">The number of errors encountered while receiving data. High input errors can indicate issues with the connection or network interface.</span>
+                        </span>
+                        {{ metrics.input_errors }}
+                    </p>
+                
+                    <!-- Output errors (data transmission errors) -->
+                    <p>
+                        <span class="tooltip">Output Errors:
+                            <span class="tooltip-text">The number of errors encountered while sending data. High output errors can indicate issues with the sending side of the connection.</span>
+                        </span>
+                        {{ metrics.output_errors }}
+                    </p>
+                </li>
+                {% endfor %}
+            {% else %}
+                <p>No network data available.</p>
+            {% endif %}
+        </ul>
+
+
+    {% endblock %}

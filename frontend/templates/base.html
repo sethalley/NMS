@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Monitoring Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</head>
+<body>
+    <header>
+        <h1>System Monitoring Dashboard</h1>
+    </header>
+
+    <nav class="navbar">
+        <ul class="navbar-links">
+            <li><a href="{{ url_for('home') }}">My Device</a></li>
+            <li><a href="{{ url_for('interface') }}">Interfaces</a></li>
+            <li><a href="{{ url_for('networking') }}">Network</a></li>
+            <li><a href="{{ url_for('globe') }}">Global-Reach</a></li>
+        </ul>
+    </nav>
+    
+    <main>
+        {% block content %}
+        <!-- This is where individual page content will be inserted. -->
+        {% endblock %}
+    </main>
+</body>
+</html>
