@@ -44,7 +44,6 @@ def fetch_device_metrics():
         'memory': get_memory_metrics(),
         'disk': get_disk_metrics(),
         'system': get_system_metrics(),
-        'gpu': get_gpu_metrics()
     }
 
 ####################################### INTERFACE METRICS ##############################
