@@ -1,5 +1,4 @@
 import psutil
-from pynvml import nvmlInit, nvmlDeviceGetHandleByIndex, nvmlDeviceGetUtilizationRates, nvmlShutdown
 import time
 import subprocess
 import socket
@@ -38,20 +37,6 @@ def get_system_metrics():
         'boot_time': time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(boot_time)),
         'load_average': psutil.getloadavg() if hasattr(psutil, 'getloadavg') else 'Not available'
     }
-
-def get_gpu_metrics():
-    try:
-        nvmlInit()
-        handle = nvmlDeviceGetHandleByIndex(0)  # First GPU
-        utilization = nvmlDeviceGetUtilizationRates(handle)
-        nvmlShutdown()
-        return {
-            'gpu_usage_percent': utilization.gpu,
-            'gpu_memory_usage_percent': utilization.memory
-        }
-    except Exception as e:
-        print(f"Error fetching GPU metrics: {e}")
-        return {'gpu_usage_percent': None, 'gpu_memory_usage_percent': None}
 
 def fetch_device_metrics():
     return {
